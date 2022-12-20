@@ -1,10 +1,10 @@
-variable "vpc-076239dcee15756e8" {}
+variable "vpc_id" {}
 
 data "aws_vpc" "selected" {
   id = var.vpc_id
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
-  vpc_id     = aws_vpc
+  vpc_id     = var.vpc_id
   cidr_block = "10.1.0.0/26"
 }
