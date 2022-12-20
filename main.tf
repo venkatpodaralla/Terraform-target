@@ -20,3 +20,10 @@ resource "aws_subnet" "MY-subnet-2" {
     Name = "My-subnet-2"
   }
 }
+resource "aws_route_table" "private" {
+  vpc_id = var.aws_vpc
+
+  tags = {
+    Name = "My_route_table"
+  }
+}
