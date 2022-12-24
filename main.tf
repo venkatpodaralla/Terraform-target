@@ -36,12 +36,3 @@ resource "aws_route_table_association" "private" {
   subnet_id = element(aws_subnet.private[*].id, count.index)
   route_table_id = aws_route_table.private.id
 }
-
-data "aws_ec2_transit_gateway_vpc_attachment" "example" {
-  id = var.transit_gateway_attachment_id
-}
-
-resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
-    subnet_ids         = aws_subnet.private[*].id 
-    aws_ec2_transit_gateway_vpc_attachment = var.transit_gateway_attachment_id
-}
