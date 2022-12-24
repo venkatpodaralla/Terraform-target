@@ -38,10 +38,7 @@ resource "aws_route_table_association" "private" {
 }
 
 data "aws_ec2_transit_gateway_attachment" "tgw_attachment" {
-  filter {
-    name   = data.aws_ec2_transit_gateway_attachment.tgw_attachment
-    value = var.shared_transit_gateway_id
-  }
+  id = var.shared_transit_gateway_id
 }
 
   resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
