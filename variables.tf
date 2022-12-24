@@ -30,5 +30,9 @@ variable "private_subnets" {
   type = list(string)
 }
 
+variable "shared_transit_gateway_id" {
+  description = "Shared Transit Gateway ID"
+  type = string
+}
 
 
