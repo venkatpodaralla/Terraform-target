@@ -3,7 +3,7 @@ resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
   cidr_block = var.secondary_cidr
 }
 
-resource "aws_subnet" "pri" {
+resource "aws_subnet" "private" {
   count = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
 
   vpc_id                          = var.aws_vpc
