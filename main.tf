@@ -46,3 +46,4 @@ data "aws_ec2_transit_gateway_attachment" "tgw_attachment" {
     subnet_ids         = aws_subnet.private[*].id 
     transit_gateway_id = aws_ec2_transit_gateway_attachment.tgw_attachment.id
     vpc_id             = var.aws_vpc
+  }
