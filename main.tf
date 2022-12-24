@@ -1,11 +1,6 @@
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
   vpc_id     = var.aws_vpc
   cidr_block = var.secondary_cidr
-
-   tags = {
-    Name = join("-", [var.project_name, "vpc"])
-  }
-
 }
 
 resource "aws_subnet" "private" {
