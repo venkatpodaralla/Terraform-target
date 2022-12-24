@@ -19,3 +19,17 @@ resource "aws_subnet" "private" {
     }
 }
 
+resource "aws_route_table" "private" {
+  vpc_id = var.aws_vpc
+
+  tags = {
+    "Name" = "${var.project_name}-private-route-table"
+  }
+}
+
+resource "aws_route_table_association" "private" {
+  count = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
+
+  subnet_id = element(aws_subnet.private[*].id, count.index)
+  route_table_id = aws_route_table.private.id
+}
