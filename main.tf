@@ -21,7 +21,10 @@ resource "aws_subnet" "private" {
 
 resource "aws_route_table" "private" {
   vpc_id = var.aws_vpc
-
+   route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = var.shared_transit_gateway_id
+  }
   tags = {
     "Name" = "${var.project_name}-private-route-table"
   }
@@ -32,4 +35,9 @@ resource "aws_route_table_association" "private" {
 
   subnet_id = element(aws_subnet.private[*].id, count.index)
   route_table_id = aws_route_table.private.id
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
+    subnet_ids         = aws_subnet.private[*].id 
+    transit_gateway_id = var.shared_transit_gateway_id
 }
