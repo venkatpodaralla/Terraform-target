@@ -38,7 +38,7 @@ resource "aws_route_table_association" "private" {
 } 
 
   data "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
-       id = var.transit_gateway_vpc_attachment
+       id = ""
   }
  resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-association" {
    subnet_ids          = aws_subnet.private[*].id
