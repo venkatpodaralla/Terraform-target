@@ -1,15 +1,15 @@
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
-  vpc_id     = var.aws_vpc
-  cidr_block = var.secondary_cidr
+  vpc_id              = var.aws_vpc
+  cidr_block          = var.secondary_cidr
 }
 
 resource "aws_subnet" "private" {
   count = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
 
-  vpc_id                          = var.aws_vpc
-  cidr_block                      = var.private_subnets[count.index]
-  availability_zone               = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) > 0 ? element(var.availability_zones, count.index) : null
-  availability_zone_id            = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) == 0 ? element(var.availability_zones, count.index) : null
+  vpc_id               = var.aws_vpc
+  cidr_block           = var.private_subnets[count.index]
+  availability_zone    = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) > 0 ? element(var.availability_zones, count.index) : null
+  availability_zone_id = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) == 0 ? element(var.availability_zones, count.index) : null
 
   tags = {
       "Name" = format(
@@ -22,8 +22,8 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   vpc_id = var.aws_vpc
    route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = var.shared_transit_gateway_id
+    cidr_block        = "0.0.0.0/0"
+    gateway_id        = var.shared_transit_gateway_id
   }
   tags = {
     "Name" = "${var.project_name}-private-route-table"
@@ -33,12 +33,18 @@ resource "aws_route_table" "private" {
 resource "aws_route_table_association" "private" {
   count = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
 
-  subnet_id = element(aws_subnet.private[*].id, count.index)
-  route_table_id = aws_route_table.private.id
-}
+  subnet_id            = element(aws_subnet.private[*].id, count.index)
+  route_table_id       = aws_route_table.private.id
+} 
 
-  resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
-    subnet_ids         = aws_subnet.private[*].id 
-    transit_gateway_id = var.shared_transit_gateway_id
-    vpc_id             = var.aws_vpc
+  data "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
+    filter {
+    name               = "transit-gateway-id"
+    values             = var.transit_gateway_vpc_attachment
+  }
+ resource "aws_ec2_transit_gateway_vpc_attachment" "example" {
+   subnet_ids          = aws_subnet.private[*].id
+   transit_gateway_id  = data.aws_ec2_transit_gateway_vpc_attachment.tgw_attachment.id
+   vpc_id              = var.aws_vpc
+}
   }
