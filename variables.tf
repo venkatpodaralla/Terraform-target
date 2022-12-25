@@ -37,5 +37,5 @@ variable "shared_transit_gateway_id" {
 
 variable "transit_gateway_vpc_attachment" {
   description = "Shared Transit Gateway attachment ID"
-  type = string
+  type = list(string)
 }
