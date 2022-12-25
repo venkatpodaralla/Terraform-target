@@ -42,9 +42,9 @@ resource "aws_route_table_association" "private" {
     name               = "transit-gateway-id"
     values             = ["var.transit_gateway_vpc_attachment"]
   }
- resource "transit_gateway_default_route_table_association" "example" {
+  }
+ resource "aws_ec2_transit_gateway_vpc_attachment" "tgw-association" {
    subnet_ids          = aws_subnet.private[*].id
    transit_gateway_id  = data.aws_ec2_transit_gateway_vpc_attachment.tgw_attachment.id
    vpc_id              = var.aws_vpc
-}
   }
