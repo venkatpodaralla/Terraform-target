@@ -35,4 +35,7 @@ variable "shared_transit_gateway_id" {
   type = string
 }
 
-
+variable "transit_gateway_vpc_attachment" {
+  description = "Shared Transit Gateway attachment ID"
+  type = string
+}
