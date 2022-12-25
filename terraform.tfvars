@@ -5,4 +5,4 @@ project_name = "Venkat-Test"
 availability_zones = ["eu-west-2c"]
 private_subnets = ["100.1.0.0/25"]
 shared_transit_gateway_id = "tgw-0d2a5925499ae4747"
-
+transit_gateway_vpc_attachment = "tgw-attach-029fcefd5084c42e3"
