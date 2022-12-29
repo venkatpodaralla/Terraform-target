@@ -37,6 +37,4 @@ resource "aws_route_table_association" "private" {
   route_table_id       = aws_route_table.private.id
 } 
 
-  data "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
-       id = ""
-  }
+  
