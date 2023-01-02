@@ -4,12 +4,12 @@ resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(var.private_subnets)
+  count = var.private_subnets
 
   vpc_id               = var.aws_vpc
   cidr_block           = var.private_subnets[count.index]
-  availability_zone    = length(regexall("^[a-z]{*}-", element(var.availability_zones, count.index)))
-  availability_zone_id = length(regexall("^[a-z]{*}-", element(var.availability_zones, count.index)))
+  availability_zone    = var.availability_zones, count.index
+  availability_zone_id = var.availability_zones, count.index
 
   tags = {
       "Name" = format(
