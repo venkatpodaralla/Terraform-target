@@ -8,8 +8,8 @@ resource "aws_subnet" "private" {
 
   vpc_id               = var.aws_vpc
   cidr_block           = var.private_subnets[count.index]
-  availability_zone    = var.availability_zones[count.index]
-  availability_zone_id = var.availability_zones[count.index]
+  availability_zone    = regexall("^[a-z]{2}-", element(var.availability_zones, count.index))
+  availability_zone_id = regexall("^[a-z]{2}-", element(var.availability_zones, count.index))
 
   tags = {
       "Name" = format(
@@ -35,4 +35,4 @@ resource "aws_route_table_association" "private" {
 
   subnet_id            = element(aws_subnet.private[*].id, count.index)
   route_table_id       = aws_route_table.private.id
-}
+} 
