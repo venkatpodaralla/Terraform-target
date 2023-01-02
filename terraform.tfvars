@@ -1,8 +1,8 @@
-region = "eu-west-2"
-aws_vpc = "vpc-059a537d8e08619a6" 
-secondary_cidr = "100.1.0.0/25"
+region = "us-east-2"
+aws_vpc = "	vpc-0d40dda1a7706cdaf" 
+secondary_cidr = "100.0.0.0/25"
 project_name = "Venkat-Test"
-availability_zones = ["eu-west-2c"]
-private_subnets = ["100.1.0.0/25"]
-shared_transit_gateway_id = "tgw-0d2a5925499ae4747"
+availability_zones = ["us-east-2c"]
+private_subnets = ["100.0.0.0/25"]
+shared_transit_gateway_id = "tgw-00f72c3c83b42e28b"
 
