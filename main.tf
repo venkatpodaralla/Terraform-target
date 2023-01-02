@@ -4,12 +4,13 @@ resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(var.private_subnets) 
+  count = length(var.private_subnets)
 
   vpc_id               = var.aws_vpc
   cidr_block           = var.private_subnets[count.index]
-  availability_zone    = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) 
-  availability_zone_id = length(regexall("^[a-z]{2}-", element(var.availability_zones, count.index))) 
+  availability_zone    = length(regexall("^[a-z]{*}-", element(var.availability_zones, count.index)))
+  availability_zone_id = length(regexall("^[a-z]{*}-", element(var.availability_zones, count.index)))
+
   tags = {
       "Name" = format(
         "${var.project_name}-private-sn-%s",
@@ -34,6 +35,4 @@ resource "aws_route_table_association" "private" {
 
   subnet_id            = element(aws_subnet.private[*].id, count.index)
   route_table_id       = aws_route_table.private.id
-} 
-
-  
+}
