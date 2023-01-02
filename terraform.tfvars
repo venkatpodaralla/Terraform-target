@@ -1,5 +1,5 @@
 region = "us-east-2"
-aws_vpc = "	vpc-0d40dda1a7706cdaf" 
+aws_vpc = "vpc-0d40dda1a7706cdaf" 
 secondary_cidr = "100.0.0.0/25"
 project_name = "Venkat-Test"
 availability_zones = ["us-east-2c"]
